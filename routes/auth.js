@@ -18,7 +18,7 @@ router.post("/register", async (req, res) => {
     const user = new User({ name, dob, email, password: hashedPassword });
     await user.save();
 
-    const token = jwt.sign({ email, id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ email, id: user._id, role: user.role }, process.env.JWT_SECRET_KEY, { expiresIn: "2d" });
     res.status(201).json({ message: "User registered successfully", token, user });
   } catch (err) {
     res.status(500).json({ message: "Error registering user", error: err.message });
@@ -36,7 +36,7 @@ router.post("/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ email, id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ email, id: user._id, role: user.role }, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
     res.status(200).json({ message: "Login successful", token, user });
   } catch (err) {
     res.status(500).json({ message: "Error logging in", error: err.message });
