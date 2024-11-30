@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import bcrypt from 'bcryptjs';
-import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
 import authRoutes from "./routes/auth.js";
 import cors from "cors";
+import cron from "./cron/cron.js";
+
+cron.start();
 
 dotenv.config();
 
