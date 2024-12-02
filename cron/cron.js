@@ -1,7 +1,8 @@
 import cron from "cron";
 import https from "https";
 
-const URL = "https://quantum-backend-wpyn.onrender.com";
+
+const URL = "https://quantum-backend-wpyn.onrender.com" ;
 
 const job = new cron.CronJob("*/14 * * * *", function () {
 	https
